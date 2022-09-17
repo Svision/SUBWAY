@@ -8,12 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    let defaults = UserDefaults.standard
+    let SCORE_TO_WIN = 7
+    
+    // Subway won number
+    @State var ella_win_number: Int;
+    @State var shawn_win_number: Int;
+    
+    // Current score
+    @State var ella_curr_score: Int;
+    @State var shawn_curr_score: Int;
+    
+    init() {
+        self.ella_win_number = defaults.integer(forKey: "EllaWins")
+        self.shawn_win_number = defaults.integer(forKey: "ShawnWins")
+        self.ella_curr_score = defaults.integer(forKey: "EllaScore")
+        self.shawn_curr_score = defaults.integer(forKey: "ShawnScore")
+    }
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Image("subway-logo")
+            HStack {
+                SubwayScoreView(winNum: $ella_win_number, score: $ella_curr_score, isElla: true)
+                SubwayScoreView(winNum: $shawn_win_number, score: $shawn_curr_score)
+            }
         }
         .padding()
     }
