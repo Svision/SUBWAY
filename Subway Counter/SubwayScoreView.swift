@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import ConfettiSwiftUI
 
 struct SubwayScoreView: View {
     let defaults = UserDefaults.standard
     let SCORE_TO_WIN = 7
+    @State private var scoreCounter = 0;
+    @State private var winNumCouter = 0;
     @Binding var winNum: Int;
     @Binding var myScore: Int;
     @Binding var otherScore: Int;
@@ -43,11 +46,19 @@ struct SubwayScoreView: View {
                         myScore = 0
                         otherScore = 0
                         winNum += 1
+                        if (winNum != SCORE_TO_WIN) {
+                            scoreCounter += 1
+                        }
+                    }
+                    if (winNum == SCORE_TO_WIN) {
+                        winNumCouter += 1
                     }
                     defaults.set(myScore, forKey: isElla ? "EllaScore" : "ShawnScore")
                 } label: {
                     Text("+")
                 }
+                .confettiCannon(counter: $scoreCounter)
+                .confettiCannon(counter: $winNumCouter, num: 150, colors: [colorElla, colorShawn], rainHeight: 1000.0, radius: 500.0)
             }
             .font(.system(size: 72))
             
