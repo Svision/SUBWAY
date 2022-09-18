@@ -30,8 +30,8 @@ struct ContentView: View {
         VStack {
             Image("subway-logo")
             HStack {
-                SubwayScoreView(winNum: $ella_win_number, score: $ella_curr_score, isElla: true)
-                SubwayScoreView(winNum: $shawn_win_number, score: $shawn_curr_score)
+                SubwayScoreView(winNum: $ella_win_number, myScore: $ella_curr_score, otherScore: $shawn_curr_score, isElla: true)
+                SubwayScoreView(winNum: $shawn_win_number, myScore: $shawn_curr_score, otherScore: $ella_curr_score)
             }
         }
         .padding()

@@ -11,7 +11,8 @@ struct SubwayScoreView: View {
     let defaults = UserDefaults.standard
     let SCORE_TO_WIN = 7
     @Binding var winNum: Int;
-    @Binding var score: Int;
+    @Binding var myScore: Int;
+    @Binding var otherScore: Int;
     var isElla: Bool = false;
     
     let colorElla = Color(red: 233/255, green: 185/255, blue: 63/255);
@@ -24,25 +25,26 @@ struct SubwayScoreView: View {
             // score
             HStack {
                 Button {
-                    if (score > 0) {
-                        score -= 1
+                    if (myScore > 0) {
+                        myScore -= 1
                     }
-                    defaults.set(score, forKey: isElla ? "EllaScore" : "ShawnScore")
+                    defaults.set(myScore, forKey: isElla ? "EllaScore" : "ShawnScore")
                 } label: {
                     Text("-")
                 }
                 
-                Text("\(score)")
+                Text("\(myScore)")
                     .frame(width:72)
                     .foregroundColor(isElla ? colorElla : colorShawn)
                 
                 Button {
-                    score += 1
-                    if (score == SCORE_TO_WIN) {
-                        score = 0
+                    myScore += 1
+                    if (myScore == SCORE_TO_WIN) {
+                        myScore = 0
+                        otherScore = 0
                         winNum += 1
                     }
-                    defaults.set(score, forKey: isElla ? "EllaScore" : "ShawnScore")
+                    defaults.set(myScore, forKey: isElla ? "EllaScore" : "ShawnScore")
                 } label: {
                     Text("+")
                 }
@@ -80,8 +82,9 @@ struct SubwayScoreView: View {
 
 struct SubwayScoreView_Previews: PreviewProvider {
     @State static var winNum = 0;
-    @State static var score = 0;
+    @State static var myScore = 0;
+    @State static var otherScore = 0;
     static var previews: some View {
-        SubwayScoreView(winNum: $winNum, score: $score)
+        SubwayScoreView(winNum: $winNum, myScore: $myScore, otherScore: $otherScore)
     }
 }
