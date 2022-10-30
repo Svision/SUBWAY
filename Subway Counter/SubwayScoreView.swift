@@ -54,6 +54,8 @@ struct SubwayScoreView: View {
                         winNumCouter += 1
                     }
                     defaults.set(myScore, forKey: isElla ? "EllaScore" : "ShawnScore")
+                    defaults.set(otherScore, forKey: isElla ? "ShawnScore" : "EllaScore")
+                    defaults.set(winNum, forKey: isElla ? "EllaWins" : "ShawnWins")
                 } label: {
                     Text("+")
                 }
